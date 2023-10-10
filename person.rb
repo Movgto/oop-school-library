@@ -16,4 +16,9 @@ class Person
   def can_use_services?
     @parent_permission || of_age?
   end
+
+  private :of_age?
 end
+
+person = Person.new(12, "Diego")
+p person.of_age?

@@ -90,7 +90,8 @@ Then, a list of actions will display to you on the terminal, type the correspond
 
 ## 🔭 Future Features <a name="future-features"></a>
 
-- [N/A]
+- Add UI.
+- Add logic so the user can add new books, students, and teachers.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
