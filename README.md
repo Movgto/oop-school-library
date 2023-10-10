@@ -66,12 +66,6 @@ git clone https://github.com/Movgto/decode-morse-ruby.git
 cd decode-morse-ruby
 ```
 
-Then, you will change everything you want!
-
-### Install
-
-Install this project with:
-
 ### Usage
 
 To run the project, execute the following command:
