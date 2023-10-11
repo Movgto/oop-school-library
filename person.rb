@@ -20,5 +20,5 @@ class Person
   private :of_age?
 end
 
-person = Person.new(12, "Diego")
+person = Person.new(12, 'Diego')
 p person.of_age?
