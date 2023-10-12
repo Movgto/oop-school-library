@@ -1,12 +1,16 @@
-class Person
-  attr_accessor :name, :age
+require_relative 'nameable'
+
+class Person < Nameable
+  attr_accessor :name, :age, :rentals
   attr_reader :id
 
   def initialize(age, name = 'Unknown', parent_permission: true)
+    super()
     @id = object_id
     @name = name
     @age = age
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def of_age?
@@ -17,8 +21,9 @@ class Person
     @parent_permission || of_age?
   end
 
+  def correct_name
+    @name
+  end
+
   private :of_age?
 end
-
-person = Person.new(12, 'Diego')
-p person.of_age?
