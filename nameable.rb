@@ -3,6 +3,3 @@ class Nameable
     raise NotImplementedError, "Method '#{__method__}' is not implemented for class '#{self.class}'"
   end
 end
-
-nameable = Nameable.new
-nameable.correct_name
