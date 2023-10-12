@@ -1,8 +1,10 @@
-require './nameable'
+require_relative 'nameable'
 
 class Decorator < Nameable
+  attr_accessor :nameable
+
   def initialize(nameable)
-    super
+    super()
     @nameable = nameable
   end
 
@@ -13,12 +15,12 @@ end
 
 class CapitalizeDecorator < Decorator
   def correct_name
-    @nameable.correct_name.chars.map(&:upcase).join
+    @nameable.correct_name.capitalize
   end
 end
 
 class TrimmerDecorator < Decorator
   def correct_name
-    @nameable.correct_name.slice(0, 9)
+    @nameable.correct_name.slice(0, 10)
   end
 end
