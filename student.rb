@@ -8,10 +8,10 @@ class Student < Person
 
   def initialize(age, name = 'Unknown', classroom = nil, parent_permission = true)
     super(age, name, parent_permission)
-    if classroom
-      @classroom = classroom
-      classroom.add_student(self)
-    end
+    return unless classroom
+
+    @classroom = classroom
+    classroom.add_student(self)
   end
 
   def assign_classroom(classroom)
