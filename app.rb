@@ -4,10 +4,11 @@ require_relative 'book'
 
 class App
   attr_reader :books, :people
+
   def initialize
     @people = {
-      "students" => [],
-      "teachers" => []
+      'students' => [],
+      'teachers' => []
     }
     @books = []
   end
@@ -17,8 +18,8 @@ class App
   end
 
   def list_people
-    @people["students"].each { |el| print "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
-    @people["teachers"].each { |el| print "[Teacher] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
+    @people['students'].each { |el| print "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
+    @people['teachers'].each { |el| print "[Teacher] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
   end
 
   def list_rentals(person)
@@ -31,10 +32,10 @@ class App
     case type
     when 1
       student = Student.new(age, name)
-      @people["students"] << student
+      @people['students'] << student
     when 2
       teacher = Teacher.new(age, specialization, name)
-      @people["teachers"] << teacher
+      @people['teachers'] << teacher
     end
   end
 
@@ -45,11 +46,11 @@ class App
 
   def search_by_id(id)
     people = []
-    @people.each do |key, value|
+    @people.each do |_key, value|
       people.concat(value)
     end
     p people
-    return people.find { |el| el.id == id }
+    people.find { |el| el.id == id }
   end
 
   def create_rental(date, person, book)
@@ -57,10 +58,8 @@ class App
   end
 
   def people_exist?
-    @people.each do |key, value|
-      if value.length > 0
-        return true
-      end
+    @people.each do |_key, value|
+      return true if value.length.positive?
     end
     false
   end

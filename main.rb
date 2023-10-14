@@ -1,163 +1,164 @@
 require_relative 'app'
 
-class Main
-  def main
-    app = App.new
-    running = true
-    while running
-      print "1. List all books\n2. List all people\n3. Create a person\n4. Create a book\n5. Create a rental\n6. List all rentals for a given person id\n7. Exit\n"
+def book_list(app)
+  print "Book list:\n"
+  if app.books.length.positive?
+    app.list_books
+    print 'Press enter to continue'
+  else
+    print 'There are not any books added yet'
+  end
+  gets.chomp
+end
 
-      print "\nSelect an option by number: "
+def people_list(app)
+  if app.people_exist?
+    app.list_people
+    print "\nPress enter to continue\n"
+  else
+    print "There are not any people added yet\n"
+    print "Press enter to continue\n"
+  end
+  gets.chomp
+end
 
-      selection = gets.chomp
-      selection = selection.to_i
+def create_student(app, type)
+  print 'Age: '
+  age = gets.chomp
+  print 'Name: '
+  name = gets.chomp
+  age = age.to_i # Convert age from string to integer
+  app.create_person(type, age, name)
+  print 'Person created successfully(press enter)'
+  gets.chomp
+end
 
-      case selection
-      when 1
-        print "Book list:\n"
-        if app.books.length > 0
-          app.list_books
-          print "Press enter to continue"
-          gets.chomp
-        else
-          print "There are not any books added yet"
-          gets.chomp
-        end
-      when 2
-        if app.people_exist?
-          app.list_people
-          print "\nPress enter to continue\n"
-          gets.chomp
-        else
-          print "There are not any people added yet\n"
-          print "Press enter to continue\n"
-          gets.chomp
-        end
-      when 3
-        print "What type of person would you like to create?\n"
-        print "1. Student\n2. Teacher\n"
-        print "Type(enter option number): \n"
-        type = gets.chomp
-        type = type.to_i
-        case type
-        when 1
-          print "Age: "
-          age = gets.chomp
-          print "Name: "
-          name = gets.chomp
+def create_teacher(app, type)
+  print 'Age: '
+  age = gets.chomp
+  age = age.to_i
+  print 'Name: '
+  name = gets.chomp
+  print 'Specialization: '
+  specialization = gets.chomp
+  app.create_person(type, age, name, specialization)
+  print "Person '#{name}' created succesfully(press enter)"
+  gets.chomp
+end
 
-          only_numbers = /^\d+$/.match?(age)
-          only_alpha = /[^a-z]/i.match?(name) == false
-          valid = only_numbers && only_alpha
-          # Check if age contains only numbers and name
-          # contains only alphabetic characters
-
-          age = age.to_i # Convert age from string to integer
-
-          if valid
-            app.create_person(type, age, name)
-            print "Person created successfully(press enter)"
-            gets.chomp
-          else
-            print "Please enter valid values"
-            gets.chomp
-          end
-        when 2
-          print "Age: "
-          age = gets.chomp
-          age = age.to_i
-          print "Name: "
-          name = gets.chomp
-          print "Specialization: "
-          specialization = gets.chomp
-
-          app.create_person(type, age, name, specialization)
-          print "Person '#{name}' created succesfully(press enter)"
-          gets.chomp
-        else
-          p "That's not a valid type, please try again\n"
-        end
-      when 4
-        print "Title: "
-        title = gets.chomp
-        print "Author: "
-        author = gets.chomp
-        app.create_book(title, author)
-        print "Book '#{title}' added successfully(press enter)"
-        gets.chomp
-      when 5
-        if app.books.length > 0
-          if app.people_exist?
-            app.list_people
-            print "Select person for a book rental by their id\n"
-            print "ID: "
-            id = gets.chomp
-            id = id.to_i
-            app.list_books
-            print "Select book to rent by number\n"
-            print "Book: "
-            book_idx = gets.chomp
-            book_idx = book_idx.to_i
-            print "Date(yyyy-mm-dd):"
-            date = gets.chomp
-            person = app.search_by_id(id)
-
-            print "Creating rental with ID: #{id} Person: #{person.name} Book: #{app.books[book_idx].title}\n"
-
-            if date != nil && app.books[book_idx] != nil && person != nil
-              app.create_rental(date, person, app.books[book_idx])
-              print "Rental created successfully!(press enter)"
-              gets.chomp
-            else
-              print "Invalid values, please try again(press enter)"
-              gets.chomp
-            end
-          else
-            print "There are not people added yet\n"
-            gets.chomp
-          end
-        else
-          print "There are not any books to rent"
-          gets.chomp
-        end
-      when 6
-        if app.people_exist?
-          app.list_people
-          print "Select person by their id\n"
-          print "ID: "
-          id = gets.chomp
-          id = id.to_i
-
-          person = app.search_by_id(id)
-
-          if person
-            if person.rentals.length > 0
-              app.list_rentals(person)
-            else 
-              print "This person doesn't have any rentals\n"
-            end
-            print "Press enter to continue..."
-            gets.chomp
-          else
-            print "Invalid values, please try again(press enter)"
-            gets.chomp
-          end
-        else
-          print "There are not people added yet(press enter)"
-          gets.chomp
-        end
-      when 7
-        print "Are you sure that you want to stop the application?(y/n)\n"
-        response = gets.chomp
-        if /y/i.match(response)
-          running = false
-        end
-      else
-        
-      end
-    end
+def create_person(app)
+  print "What type of person would you like to create?\n"
+  print "1. Student\n2. Teacher\n"
+  print "Type(enter option number): \n"
+  type = gets.chomp
+  type = type.to_i
+  case type
+  when 1
+    create_student(app, type)
+  when 2
+    create_teacher(app, type)
+  else
+    p "That's not a valid type, please try again\n"
   end
 end
 
-main = Main.new
-main.main
+def create_book_main(app)
+  print 'Title: '
+  title = gets.chomp
+  print 'Author: '
+  author = gets.chomp
+  app.create_book(title, author)
+  print "Book '#{title}' added successfully(press enter)"
+  gets.chomp
+end
+
+def rentals_list(app)
+  if app.people_exist?
+    app.list_people
+    print 'Select person by their id: '
+    id = gets.chomp
+    id = id.to_i
+    person = app.search_by_id(id)
+    if person
+      if person.rentals.length.positive?
+        app.list_rentals(person)
+      else
+        puts("This person doesn't have any rentals\n")
+      end
+    else
+      puts("There are not people added yet\n")
+    end
+    print 'Press enter to continue...'
+  else
+    print 'There are not people added yet(press enter)'
+  end
+  gets.chomp
+end
+
+def create_rental_main(app)
+  if app.books.length.positive?
+    if app.people_exist?
+      app.list_people
+      print 'Select person for a book rental by their id: '
+      id = gets.chomp.to_i
+      app.list_books
+      print 'Select book to rent by number: '
+      book_idx = gets.chomp.to_i
+      print 'Date(yyyy-mm-dd):'
+      date = gets.chomp
+      person = app.search_by_id(id)
+      app.create_rental(date, person, app.books[book_idx])
+      print('Rental created successfully')
+    else
+      print 'There are not people added yet'
+    end
+  else
+    print 'There are not any books to rent'
+  end
+  gets.chomp
+end
+
+def options_list
+  print <<~HEREDOC
+    1. List all books
+    2. List all people
+    3. Create a person
+    4. Create a book
+    5. Create a rental
+    6. List all rentals for a given person id
+    7. Exit
+  HEREDOC
+
+  print "\nSelect an option by number: "
+
+  selection = gets.chomp
+  selection.to_i
+end
+
+def exit
+  print "Are you sure that you want to stop the application?(y/n)\n"
+  /y/i.match?(gets.chomp) == false
+end
+
+def selection_cases(selection, app)
+  cases = {
+    '1' => method(:book_list),
+    '2' => method(:people_list),
+    '3' => method(:create_person),
+    '4' => method(:create_book_main),
+    '5' => method(:create_rental_main),
+    '6' => method(:rentals_list),
+    '7' => method(:exit)
+  }
+
+  cases[selection.to_s].call(app)
+end
+
+def main(app)
+  selection = options_list
+  selection_cases(selection, app)
+end
+
+app = App.new
+running = true
+running = main(app) while running
