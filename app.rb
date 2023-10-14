@@ -18,7 +18,9 @@ class App
   end
 
   def list_people
-    @people['students'].each { |el| print "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
+    @people['students'].each do |el|
+      print "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age} Parent permission: #{el.parent_permission}\n"
+    end
     @people['teachers'].each { |el| print "[Teacher] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
   end
 
@@ -28,10 +30,10 @@ class App
     end
   end
 
-  def create_person(type, age, name, specialization = nil)
+  def create_person(type, age, name, parent_permission, specialization = nil)
     case type
     when 1
-      student = Student.new(age, name)
+      student = Student.new(age, name, nil, parent_permission)
       @people['students'] << student
     when 2
       teacher = Teacher.new(age, specialization, name)

@@ -27,8 +27,10 @@ def create_student(app, type)
   age = gets.chomp
   print 'Name: '
   name = gets.chomp
+  print 'Parent permission?(y/n): '
+  parent_permission = /y/i.match?(gets.chomp)
   age = age.to_i # Convert age from string to integer
-  app.create_person(type, age, name)
+  app.create_person(type, age, name, parent_permission)
   print 'Person created successfully(press enter)'
   gets.chomp
 end
@@ -41,7 +43,7 @@ def create_teacher(app, type)
   name = gets.chomp
   print 'Specialization: '
   specialization = gets.chomp
-  app.create_person(type, age, name, specialization)
+  app.create_person(type, age, name, true, specialization)
   print "Person '#{name}' created succesfully(press enter)"
   gets.chomp
 end
