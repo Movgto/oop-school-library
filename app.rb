@@ -1,31 +1,29 @@
 require_relative 'student'
 require_relative 'teacher'
+require_relative 'book'
 
 class App
+  attr_reader :books, :people
   def initialize
     @people = {
-      students => [],
-      teachers => []
+      "students" => [],
+      "teachers" => []
     }
     @books = []
   end
 
   def list_books
-    @books.map { |el| p el.title }
+    @books.each_with_index { |el, i| print " #{i}. Title: #{el.title} Author: #{el.author}\n" }
   end
 
   def list_people
-    @people.students.map { |el| p "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age}" }
-    @people.teachers.map { |el| p "[Teacher] Name: #{el.name} ID: #{el.id} Age: #{el.age}" }
+    @people["students"].each { |el| print "[Student] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
+    @people["teachers"].each { |el| print "[Teacher] Name: #{el.name} ID: #{el.id} Age: #{el.age}\n" }
   end
 
-  def list_rentals(id)
-    search_by_id(id)
-
-    @rentals.each do |rental|
-      p "Date: #{rental.date}
-      Person: ##{rental.person.name}
-      Book: #{rental.book.title}"
+  def list_rentals(person)
+    person.rentals.each do |rental|
+      print "Date: #{rental.date} Book: #{rental.book.title}\n"
     end
   end
 
@@ -33,27 +31,37 @@ class App
     case type
     when 1
       student = Student.new(age, name)
-      @people.students << student
+      @people["students"] << student
     when 2
       teacher = Teacher.new(age, specialization, name)
-      @people.teachers << teacher
+      @people["teachers"] << teacher
     end
+  end
+
+  def create_book(title, author)
+    book = Book.new(title, author)
+    @books << book
   end
 
   def search_by_id(id)
     people = []
-    @people.each do |_key, value|
+    @people.each do |key, value|
       people.concat(value)
     end
-
-    people.find { |el| el.id == id }
+    p people
+    return people.find { |el| el.id == id }
   end
 
-  def create_rental(date, id, book_title)
-    person = search_by_id(id)
-
-    book = @books.find { |item| item.title == book_title }
-
+  def create_rental(date, person, book)
     Rental.new(date, book, person)
+  end
+
+  def people_exist?
+    @people.each do |key, value|
+      if value.length > 0
+        return true
+      end
+    end
+    false
   end
 end
