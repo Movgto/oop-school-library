@@ -25,7 +25,7 @@ class Student < Person
 end
 
 classroom = Classroom.new(301)
-student = Student.new(13, classroom, 'Mario')
+student = Student.new(13, 'Mario', classroom)
 book_dune = Book.new('Dune', 'Frank Herbert')
 rental = Rental.new('2023-10-21', book_dune, student)
 
