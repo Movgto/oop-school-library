@@ -135,7 +135,7 @@ def options_list
   selection.to_i
 end
 
-def exit
+def exit(_app)
   print "Are you sure that you want to stop the application?(y/n)\n"
   /y/i.match?(gets.chomp) == false
 end
@@ -151,14 +151,17 @@ def selection_cases(selection, app)
     '7' => method(:exit)
   }
 
-  cases[selection.to_s].call(app)
+  chosen = cases[selection.to_s]
+  chosen&.call(app)
 end
 
-def main(app)
-  selection = options_list
-  selection_cases(selection, app)
+def main
+  app = App.new
+  running = true
+  while running
+    selection = options_list
+    running = selection_cases(selection, app)
+  end
 end
 
-app = App.new
-running = true
-running = main(app) while running
+main
