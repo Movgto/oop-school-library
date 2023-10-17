@@ -47,7 +47,6 @@ class App
   def search_by_id(id)
     people = []
     @people.each do |_key, value|
-    @people.each do |_key, value|
       people.concat(value)
     end
     p people
