@@ -1,4 +1,4 @@
-# Main.rb
+
 
 require_relative 'app'
 require_relative 'book_operations'
@@ -15,7 +15,25 @@ def main
 end
 
 def options_list
-  # Your options_list logic here
+  print <<~HEREDOC
+    1. List all books
+    2. List all people
+    3. Create a person
+    4. Create a book
+    5. Create a rental
+    6. List all rentals for a given person id
+    7. Exit
+  HEREDOC
+
+  print "\nSelect an option by number: "
+
+  selection = gets.chomp
+  selection.to_i
+end
+
+def exit(_app)
+  print "Are you sure that you want to stop the application?(y/n)\n"
+  /y/i.match?(gets.chomp) == false
 end
 
 def selection_cases(selection, app)
