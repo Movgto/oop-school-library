@@ -1,5 +1,3 @@
-
-
 require_relative 'app'
 require_relative 'book_operations'
 require_relative 'people_operations'

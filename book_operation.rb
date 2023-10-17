@@ -1,5 +1,3 @@
-
-
 class BookOperations
   def self.book_list(app)
     print "Book list:\n"
