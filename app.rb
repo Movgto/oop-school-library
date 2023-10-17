@@ -67,7 +67,7 @@ class App
     end
     false
   end
-  
+
   def create_book(title, author)
     book = Book.new(title, author)
     @books << book
