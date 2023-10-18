@@ -1,5 +1,9 @@
+require_relative 'data_handler'
+
 class Rental
   attr_accessor :date, :person, :book
+
+  include DataHandler
 
   def initialize(person, book, date)
     @date = date
@@ -10,36 +14,13 @@ class Rental
   end
 
   def save(people_list, books_list)
-    person_idx = people_list.find_index {|el| el == @person}
-    book_idx = books_list.find_index {|el| el == @book}
-
+    person_idx = people_list.find_index { |el| el == @person }
+    book_idx = books_list.find_index { |el| el == @book }
     rental = {
-      "person_idx" => person_idx,
-      "book_idx" => book_idx,
-      "date" => @date,
+      'person_idx' => person_idx,
+      'book_idx' => book_idx,
+      'date' => @date
     }
-
-    opts = {
-      array_nl: "\n",
-      object_nl: "\n",
-      indent: '  ',
-      space_before: ' ',
-      space: ' '
-    }
-
-    if File.exist?('./data/rentals.json') 
-      rentals = JSON.parse(
-        File
-        .open('./data/rentals.json')
-        .read
-      )
-
-      rentals.push(rental)
-
-      File.write('./data/rentals.json', JSON.generate(rentals, opts))
-
-    else
-      File.write('./data/rentals.json', JSON.generate([rental], opts))
-    end
+    save_element(rental, 'rentals')
   end
 end

@@ -1,7 +1,10 @@
 require_relative 'person'
+require_relative 'data_handler'
 
 class Student < Person
   attr_reader :classroom
+
+  include DataHandler
 
   def initialize(classroom, age, name = 'Unknown')
     super(age, name, parent_permission: true)
@@ -19,33 +22,9 @@ class Student < Person
 
   def save
     student = {
-      "age" => @age,
-      "name" => @name,
+      'age' => @age,
+      'name' => @name
     }
-
-    opts = {
-      array_nl: "\n",
-      object_nl: "\n",
-      indent: '  ',
-      space_before: ' ',
-      space: ' '
-    }
-
-    if File.exist?('./data/students.json') 
-      students = JSON.parse(
-        File
-        .open('./data/students.json')
-        .read
-      )
-
-      students.push(student)
-
-      File.write('./data/students.json', JSON.generate(students, opts))
-
-      p "Students ", students
-
-    else
-      File.write('./data/students.json', JSON.generate([student], opts))
-    end
+    save_element(student, 'students')
   end
 end

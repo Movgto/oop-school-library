@@ -1,8 +1,10 @@
 require_relative 'person'
-require 'json'
+require_relative 'data_handler'
 
 class Teacher < Person
   attr_accessor :specialization
+
+  include DataHandler
 
   def initialize(specialization, age, name = 'Unknown')
     super(age, name, parent_permission: true)
@@ -15,34 +17,10 @@ class Teacher < Person
 
   def save
     teacher = {
-      "specialization" => @specialization,
-      "age" => @age,
-      "name" => @name,
+      'specialization' => @specialization,
+      'age' => @age,
+      'name' => @name
     }
-
-    opts = {
-      array_nl: "\n",
-      object_nl: "\n",
-      indent: '  ',
-      space_before: ' ',
-      space: ' '
-    }
-
-    if File.exist?('./data/teachers.json') 
-      teachers = JSON.parse(
-        File
-        .open('./data/teachers.json')
-        .read
-      )
-
-      teachers.push(teacher)
-
-      File.write('./data/teachers.json', JSON.generate(teachers, opts))
-
-      p "Teachers", teachers
-
-    else
-      File.write('./data/teachers.json', JSON.generate([teacher], opts))
-    end
+    save_element(teacher, 'teachers')
   end
 end

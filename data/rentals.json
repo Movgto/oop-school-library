@@ -8,5 +8,15 @@
     "person_idx" : 4,
     "book_idx" : 4,
     "date" : "2023-11-05"
+  },
+  {
+    "person_idx" : 0,
+    "book_idx" : 1,
+    "date" : "2023-12-25"
+  },
+  {
+    "person_idx" : 3,
+    "book_idx" : 5,
+    "date" : "2023-12-06"
   }
 ]

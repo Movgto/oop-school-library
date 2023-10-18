@@ -1,7 +1,9 @@
 require_relative 'app'
+require_relative 'app/models/data_handler'
 
 class Launcher
   include Library
+  include DataHandler
   # Print list of Main options
   def option_list
     puts 'Please choose an option by intering a number:'
@@ -22,30 +24,29 @@ class Launcher
   # choice: string - option value
   # rubocop:disable Metrics/CyclomaticComplexity
   def use_cases(choice)
-    people = getPeople
-    books = getBooks
-    rentals = getRentals(books, people)
+    people = gather_people
+    books = gather_books
+    rentals = gather_rentals(books, people)
 
-    case choice
-    when '1'
-      get_list_books(books, false)
-    when '2'
-      get_list_person(people, false)
-    when '3'
-      puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
-      choice = gets.chomp
-      add_new_person(people, choice)
-    when '4'
-      add_new_book(books)
-    when '5'
-      create_new_rental(rentals, books, people)
-    when '6'
-      get_user_rental(people)
-    when '7'
-      exit
-    else
-      wrong_number_msg
-    end
+    data = {
+      people: people,
+      books: books,
+      rentals: rentals,
+    }
+
+    options = {
+      "1" => method(:get_list_books),
+      "2" => method(:get_list_person),
+      "3" => method(:add_new_person),
+      "4" => method(:add_new_book),
+      "5" => method(:create_new_rental),
+      "6" => method(:get_user_rental),
+      "7" => method(:exit),
+    }
+
+    return wrong_number_msg if options[choice].nil?
+
+    options[choice].call(data)
   end
   # rubocop:enable Metrics/CyclomaticComplexity
 end
@@ -54,10 +55,11 @@ end
 def main
   puts "\nWelcome to School Library App!"
   puts "\n"
-
-  loop do
+  running = true
+  while running
     choice = Launcher.new.option_list
-    Launcher.new.use_cases(choice)
+    response = Launcher.new.use_cases(choice)
+    running = response.nil? || response == true
   end
 end
 

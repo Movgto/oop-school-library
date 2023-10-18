@@ -1,8 +1,12 @@
+require_relative 'data_handler'
+
 class Book
   attr_accessor :title, :author, :rentals
 
+  include DataHandler
+
   def initialize(title, author)
-    @id = Random.rand(1..10000)
+    @id = Random.rand(1..10_000)
     @title = title
     @author = author
     @rentals = []
@@ -14,33 +18,9 @@ class Book
 
   def save
     book = {
-      "title" => @title,
-      "author" => @author,
+      'title' => @title,
+      'author' => @author
     }
-
-    opts = {
-      array_nl: "\n",
-      object_nl: "\n",
-      indent: '  ',
-      space_before: ' ',
-      space: ' '
-    }
-
-    if File.exist?('./data/books.json') 
-      books = JSON.parse(
-        File
-        .open('./data/books.json')
-        .read
-      )
-
-      books.push(book)
-
-      File.write('./data/books.json', JSON.generate(books, opts))
-
-      p "Books ", books
-
-    else
-      File.write('./data/books.json', JSON.generate([book], opts))
-    end
+    save_element(book, 'books')
   end
 end
