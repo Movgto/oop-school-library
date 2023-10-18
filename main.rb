@@ -21,22 +21,26 @@ class Launcher
   # all_person: array of person
   # choice: string - option value
   # rubocop:disable Metrics/CyclomaticComplexity
-  def use_cases(choice, all_books, all_person, all_rentals)
+  def use_cases(choice)
+    people = getPeople
+    books = getBooks
+    rentals = getRentals(books, people)
+
     case choice
     when '1'
-      get_list_books(all_books, false)
+      get_list_books(books, false)
     when '2'
-      get_list_person(all_person, false)
+      get_list_person(people, false)
     when '3'
       puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
       choice = gets.chomp
-      add_new_person(all_person, choice)
+      add_new_person(people, choice)
     when '4'
-      add_new_book(all_books)
+      add_new_book(books)
     when '5'
-      create_new_rental(all_rentals, all_books, all_person)
+      create_new_rental(rentals, books, people)
     when '6'
-      get_user_rental(all_person)
+      get_user_rental(people)
     when '7'
       exit
     else
@@ -50,13 +54,10 @@ end
 def main
   puts "\nWelcome to School Library App!"
   puts "\n"
-  all_books = []
-  all_person = []
-  all_rentals = []
 
   loop do
     choice = Launcher.new.option_list
-    Launcher.new.use_cases(choice, all_books, all_person, all_rentals)
+    Launcher.new.use_cases(choice)
   end
 end
 

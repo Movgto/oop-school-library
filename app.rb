@@ -60,11 +60,10 @@ module Library
   # Method that displays all user rental
   # list_person: array of person
   def get_user_rental(list_person)
-    puts 'All rentals for a given person id'
-    id = gets.chomp
-    list_person.each do |person|
-      person.rentals_description if person.id == id.to_i
-    end
+    puts 'All rentals for a given person number(not id)'
+    get_list_person(list_person, true)
+    idx = gets.chomp
+    list_person[idx.to_i].rentals_description
     puts "\n"
   end
 
@@ -84,12 +83,13 @@ module Library
       puts 'Has Parent Permission? [Y/N]:'
       par_permission = gets.chomp
       student.parent_permission = (par_permission.upcase == 'Y')
-      list_person.push(student)
+      student.save
+      p JSON.generate(student)
     when '2'
       teacher = Teacher.new(nil, age, name)
       puts 'Specialization:'
       teacher.specialization = gets.chomp
-      list_person.push(teacher)
+      teacher.save
     end
     success_msg('Person')
   end
@@ -102,7 +102,7 @@ module Library
     book.title = gets.chomp
     puts 'Author:'
     book.author = gets.chomp
-    list_book.push(book)
+    book.save
     success_msg('Book')
   end
 
@@ -124,9 +124,74 @@ module Library
       rental_date = gets.chomp
       rental.date = rental_date
       success_msg('Rental')
-      list_rental.push(rental)
+      rental.save(list_person, list_book)
     else
       wrong_number_msg
     end
+  end
+
+  def getPeople
+    people = []
+    if File.exist?('./data/students.json')
+      data = JSON.parse(
+        File
+        .open('./data/students.json')
+        .read
+      )
+      p data
+      data = data.map { |el| Student.new(nil, el["age"], el["name"]) } 
+      people.concat(data)
+    end
+
+    if File.exist?('./data/teachers.json')
+      data = JSON.parse(
+        File
+        .open('./data/teachers.json')
+        .read
+      )
+
+      data = data.map { |el| Teacher.new(el["specialization"], el["age"], el["name"]) } 
+      people.concat(data)
+    end
+
+    people
+  end
+
+  def getBooks
+    books = []
+    if File.exist?('./data/books.json')
+      data = JSON.parse(
+        File
+        .open('./data/books.json')
+        .read
+      )
+      p data
+      data = data.map { |el| Book.new(el["title"], el["author"]) } 
+      books.concat(data)
+    end
+
+    books
+  end
+
+  def getRentals(book_list, people_list)
+    rentals = []
+    if File.exist?('./data/rentals.json')
+      data = JSON.parse(
+        File
+        .open('./data/rentals.json')
+        .read
+      )
+
+      data = data.map do |el|
+        person = people_list[el["person_idx"]]
+        book = book_list[el["book_idx"]]
+
+        Rental.new(person, book, el["date"])
+      end
+
+      rentals.concat(data)
+    end
+
+    rentals
   end
 end
