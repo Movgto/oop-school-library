@@ -2,7 +2,6 @@ require './app/models/student'
 require './app/models/teacher'
 require './app/models/book'
 require './app/models/rental'
-
 module Library
   def wrong_number_msg
     puts "\n*** [WARNING] You passed a wrong number ***"
@@ -66,7 +65,6 @@ module Library
     age = gets.chomp
     puts 'Name:'
     name = gets.chomp
-
     case choice
     when '1'
       create_student(age, name)
