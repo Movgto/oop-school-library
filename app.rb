@@ -63,20 +63,30 @@ module Library
     age = gets.chomp
     puts 'Name:'
     name = gets.chomp
+
     case choice
     when '1'
-      student = Student.new(nil, age, name)
-      puts 'Has Parent Permission? [Y/N]:'
-      par_permission = gets.chomp
-      student.parent_permission = (par_permission.upcase == 'Y')
-      student.save
-      puts JSON.generate(student)
+      create_student(age, name)
     when '2'
-      teacher = Teacher.new(nil, age, name)
-      puts 'Specialization:'
-      teacher.specialization = gets.chomp
-      teacher.save
+      create_teacher(age, name)
     end
+  end
+
+  def create_student(age, name)
+    student = Student.new(nil, age, name)
+    puts 'Has Parent Permission? [Y/N]:'
+    par_permission = gets.chomp
+    student.parent_permission = (par_permission.upcase == 'Y')
+    student.save
+    puts JSON.generate(student)
+    success_msg('Person')
+  end
+
+  def create_teacher(age, name)
+    teacher = Teacher.new(nil, age, name)
+    puts 'Specialization:'
+    teacher.specialization = gets.chomp
+    teacher.save
     success_msg('Person')
   end
 
