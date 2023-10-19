@@ -1,7 +1,7 @@
-require './app/models/student'
-require './app/models/teacher'
-require './app/models/book'
-require './app/models/rental'
+require_relative 'student'
+require_relative 'teacher'
+require_relative 'book'
+require_relative 'rental'
 
 module Library
   # Warnig method that displays a wrong message passed
@@ -59,13 +59,13 @@ module Library
 
   # Method that displays all user rental
   # list_person: array of person
-  def get_user_rental(list_person)
+  def get_user_rental(list_person, all_rentals)
     puts 'All rentals for a given person id'
     id = gets.chomp
     list_person.each do |person|
-      person.rentals_description if person.id == id.to_i
+      person.rentals = person.filter_user_rentals(all_rentals, id.to_i)
+      puts person.rentals_description if person.id == id.to_i
     end
-    puts "\n"
   end
 
   # Method that helps to add new person to the array
@@ -79,19 +79,25 @@ module Library
     puts 'Name:'
     name = gets.chomp
     case choice
-    when '1'
-      student = Student.new(nil, age, name)
-      puts 'Has Parent Permission? [Y/N]:'
-      par_permission = gets.chomp
-      student.parent_permission = (par_permission.upcase == 'Y')
-      list_person.push(student)
-    when '2'
-      teacher = Teacher.new(nil, age, name)
-      puts 'Specialization:'
-      teacher.specialization = gets.chomp
-      list_person.push(teacher)
+    when '1' then create_student(age, name, list_person)
+    when '2' then create_teacher(age, name, list_person)
     end
     success_msg('Person')
+  end
+
+  def create_student(age, name, list_person)
+    student = Student.new(nil, age, name)
+    puts 'Has Parent Permission? [Y/N]:'
+    par_permission = gets.chomp
+    student.parent_permission = (par_permission.upcase == 'Y')
+    list_person.push(student)
+  end
+
+  def create_teacher(age, name, list_person)
+    teacher = Teacher.new(nil, age, name)
+    puts 'Specialization:'
+    teacher.specialization = gets.chomp
+    list_person.push(teacher)
   end
 
   # Method that helps to add new book to the array
@@ -122,7 +128,7 @@ module Library
       rental = Rental.new(list_person[person_index.to_i], list_book[book_index.to_i], nil)
       puts 'Date:'
       rental_date = gets.chomp
-      rental.date = rental_date
+      rental.date = rental_date.to_i
       success_msg('Rental')
       list_rental.push(rental)
     else

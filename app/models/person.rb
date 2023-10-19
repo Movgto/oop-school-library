@@ -1,8 +1,7 @@
 require_relative 'nameable'
 
 class Person < Nameable
-  attr_reader :id
-  attr_accessor :age, :name, :rentals, :parent_permission
+  attr_accessor :id, :age, :name, :rentals, :parent_permission
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
@@ -30,13 +29,23 @@ class Person < Nameable
   end
 
   def rentals_description
+    description = ''
     if @rentals.length.positive?
       @rentals.each do |rental|
-        puts "Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}"
+        description.concat("Date: #{rental.date}, Book '#{rental.book.title}' by #{rental.book.author}\n")
       end
     else
-      puts 'No record found'
+      description = 'No record found'
     end
+    description
+  end
+
+  def filter_user_rentals(all_rentals, user_id)
+    array_rentals = []
+    all_rentals.each do |rental|
+      array_rentals.push(Rental.new(rental.person, rental.book, rental.date)) if rental.person.id == user_id
+    end
+    array_rentals
   end
 
   private
