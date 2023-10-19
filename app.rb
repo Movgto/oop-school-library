@@ -12,6 +12,7 @@ module Library
     return true if range.include?(choice)
 
     wrong_number_msg
+
     false
   end
 
@@ -51,14 +52,16 @@ module Library
     gets.chomp.to_i
   end
 
-  def add_new_person
+  def add_new_person(*)
     puts 'Do you want to create a student (1) or a teacher (2) [Input the number]:'
     choice = gets.chomp
     return unless valid_number?(%w[1 2], choice)
+
     puts 'Age:'
     age = gets.chomp
     puts 'Name:'
     name = gets.chomp
+
     case choice
     when '1'
       create_student(age, name)
