@@ -42,10 +42,8 @@ class Launcher
 
     options[choice].call(data)
   end
-  # rubocop:enable Metrics/CyclomaticComplexity
 end
 
-# The entry point method
 def main
   puts "\nWelcome to School Library App!"
   puts "\n"
