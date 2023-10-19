@@ -17,12 +17,6 @@ class Launcher
     gets.chomp
   end
 
-  # Method that manages main option
-  # all_rentals: array of rentals
-  # all_books: array of books
-  # all_person: array of person
-  # choice: string - option value
-  # rubocop:disable Metrics/CyclomaticComplexity
   def use_cases(choice)
     people = gather_people
     books = gather_books
@@ -31,17 +25,17 @@ class Launcher
     data = {
       people: people,
       books: books,
-      rentals: rentals,
+      rentals: rentals
     }
 
     options = {
-      "1" => method(:get_list_books),
-      "2" => method(:get_list_person),
-      "3" => method(:add_new_person),
-      "4" => method(:add_new_book),
-      "5" => method(:create_new_rental),
-      "6" => method(:get_user_rental),
-      "7" => method(:exit),
+      '1' => method(:get_list_books),
+      '2' => method(:get_list_person),
+      '3' => method(:add_new_person),
+      '4' => method(:add_new_book),
+      '5' => method(:create_new_rental),
+      '6' => method(:get_user_rental),
+      '7' => method(:exit)
     }
 
     return wrong_number_msg if options[choice].nil?

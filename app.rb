@@ -4,13 +4,11 @@ require './app/models/book'
 require './app/models/rental'
 
 module Library
-  # Warnig method that displays a wrong message passed
   def wrong_number_msg
     puts "\n*** [WARNING] You passed a wrong number ***"
     puts "\n"
   end
 
-  # method that checks whether option number is valid or not
   def valid_number?(range, choice)
     unless range.include?(choice)
       wrong_number_msg
@@ -19,15 +17,11 @@ module Library
     true
   end
 
-  # Method that displays customized success message
   def success_msg(label)
     puts "\n#{label} Created successfully"
     puts "\n"
   end
 
-  # Method that displays all recorded books
-  # list_book: array of books
-  # show_index: true|false
   def get_list_books(data, show_index = false)
     puts "\nAll Books:"
     if data[:books].length.positive?
@@ -41,9 +35,6 @@ module Library
     puts "\n"
   end
 
-  # Method that displays all recorded person
-  # list_person: array of person
-  # show_index: true|false
   def get_list_person(data, show_index = false)
     puts "\nAll People:"
     if data[:people].length.positive?
@@ -67,10 +58,7 @@ module Library
     puts "\n"
   end
 
-  # Method that helps to add new person to the array
-  # list_person: array of person
-  # choice: string - option value
-  def add_new_person(data)
+  def add_new_person()
     puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
     choice = gets.chomp
     return unless valid_number?(%w[1 2], choice)
@@ -96,9 +84,7 @@ module Library
     success_msg('Person')
   end
 
-  # Method that helps to add new book to the array
-  # list_book: array of books
-  def add_new_book(data)
+  def add_new_book(*)
     book = Book.new(nil, nil)
     puts 'title:'
     book.title = gets.chomp
@@ -108,10 +94,6 @@ module Library
     success_msg('Book')
   end
 
-  # Method that helps to add new rental to the array
-  # list_rental: array of rentals
-  # list_book: array of books
-  # list_person: array of person
   def create_new_rental(data)
     puts 'Select a book from the following list by number'
     get_list_books(data, true)
@@ -132,7 +114,7 @@ module Library
     end
   end
 
-  def exit(data)
+  def exit(*)
     false
   end
 end
