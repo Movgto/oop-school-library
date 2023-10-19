@@ -57,9 +57,7 @@ module Library
   def add_new_person(*)
     puts 'Do you want to create a student (1) or a teacher (2) [Input the number]:'
     choice = gets.chomp
-    return unless valid_number?(%w[1 2], choice)
-
-    puts 'Age:'
+    return unless valid_number?(%w[1 2], choice); puts 'Age:';
     age = gets.chomp
     puts 'Name:'
     name = gets.chomp

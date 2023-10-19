@@ -25,7 +25,7 @@ class Launcher
     data = {
       people: people,
       books: books,
-      rentals: rentals,
+      rentals: rentals
     }
 
     options = {
@@ -35,7 +35,7 @@ class Launcher
       '4' => method(:add_new_book),
       '5' => method(:create_new_rental),
       '6' => method(:get_user_rental),
-      '7' => method(:exit),
+      '7' => method(:exit)
     }
 
     return wrong_number_msg if options[choice].nil?
