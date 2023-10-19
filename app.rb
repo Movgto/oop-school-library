@@ -4,13 +4,10 @@ require './app/models/book'
 require './app/models/rental'
 
 module Library
-  # Warnig method that displays a wrong message passed
   def wrong_number_msg
-    puts "\n*** [WARNING] You passed a wrong number ***"
-    puts "\n"
+    puts "\n*** [WARNING] You passed a wrong number ***\n\n"
   end
 
-  # method that checks whether option number is valid or not
   def valid_number?(range, choice)
     unless range.include?(choice)
       wrong_number_msg
@@ -19,21 +16,16 @@ module Library
     true
   end
 
-  # Method that displays customized success message
   def success_msg(label)
-    puts "\n#{label} Created successfully"
-    puts "\n"
+    puts "\n#{label} Created successfully\n\n"
   end
 
-  # Method that displays all recorded books
-  # list_book: array of books
-  # show_index: true|false
   def get_list_books(data, show_index = false)
     puts "\nAll Books:"
-    if data[:books].length.positive?
+    if data[:books].any?
       data[:books].each.with_index do |book, index|
         book_index = show_index ? "#{index})" : ''
-        puts "#{book_index} Title: #{book.title},  Author: #{book.author}"
+        puts "#{book_index} Title: #{book.title}, Author: #{book.author}"
       end
     else
       puts 'No record found'
@@ -41,12 +33,9 @@ module Library
     puts "\n"
   end
 
-  # Method that displays all recorded person
-  # list_person: array of person
-  # show_index: true|false
   def get_list_person(data, show_index = false)
     puts "\nAll People:"
-    if data[:people].length.positive?
+    if data[:people].any?
       data[:people].each.with_index do |people, index|
         person_index = show_index ? "#{index})" : ''
         puts "#{person_index} #{people.description}"
@@ -57,21 +46,16 @@ module Library
     puts "\n"
   end
 
-  # Method that displays all user rental
-  # list_person: array of person
   def get_user_rental(data)
-    puts 'All rentals for a given person number(not id)'
+    puts 'All rentals for a given person number (not id)'
     get_list_person(data, true)
     idx = gets.chomp
     data[:people][idx.to_i].rentals_description
     puts "\n"
   end
 
-  # Method that helps to add new person to the array
-  # list_person: array of person
-  # choice: string - option value
-  def add_new_person(data)
-    puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
+  def add_new_person(*)
+    puts 'Do you want to create a student (1) or a teacher (2) [Input the number]:'
     choice = gets.chomp
     return unless valid_number?(%w[1 2], choice)
 
@@ -86,7 +70,7 @@ module Library
       par_permission = gets.chomp
       student.parent_permission = (par_permission.upcase == 'Y')
       student.save
-      p JSON.generate(student)
+      puts JSON.generate(student)
     when '2'
       teacher = Teacher.new(nil, age, name)
       puts 'Specialization:'
@@ -96,11 +80,9 @@ module Library
     success_msg('Person')
   end
 
-  # Method that helps to add new book to the array
-  # list_book: array of books
-  def add_new_book(data)
+  def add_new_book(*)
     book = Book.new(nil, nil)
-    puts 'title:'
+    puts 'Title:'
     book.title = gets.chomp
     puts 'Author:'
     book.author = gets.chomp
@@ -108,10 +90,6 @@ module Library
     success_msg('Book')
   end
 
-  # Method that helps to add new rental to the array
-  # list_rental: array of rentals
-  # list_book: array of books
-  # list_person: array of person
   def create_new_rental(data)
     puts 'Select a book from the following list by number'
     get_list_books(data, true)
@@ -132,7 +110,7 @@ module Library
     end
   end
 
-  def exit(data)
+  def exit
     false
   end
 end
