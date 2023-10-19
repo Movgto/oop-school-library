@@ -1,4 +1,4 @@
-require_relative '../models/classroom'
+require_relative '../app/models/classroom'
 
 describe '#Classroom' do
   let(:new_classroom) { Classroom.new('Programming') }

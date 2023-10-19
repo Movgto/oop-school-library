@@ -1,5 +1,5 @@
-require_relative '../models/trimmer_decorator'
-​
+require_relative '../app/models/trimmer_decorator'
+
 describe '#TrimmerDecorator' do
   let(:person) { Person.new(22, 'JavierAybar') }
   let(:new_trimmer) { TrimmerDecorator.new(person) }

@@ -1,4 +1,4 @@
-require_relative '../models/capitalize_decorator'
+require_relative '../app/models/capitalize_decorator'
 
 describe '#CapitalizeDecorator' do
   let(:person) { Person.new(22, 'javiera') }

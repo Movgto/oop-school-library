@@ -1,6 +1,6 @@
-require_relative '../models/book'
-require_relative '../models/person'
-require_relative '../models/rental'
+require_relative '../app/models/book'
+require_relative '../app/models/person'
+require_relative '../app/models/rental'
 
 describe Book do
   let(:new_book) { Book.new('The Gatsby', 'F. Scott Fitzgerald') }

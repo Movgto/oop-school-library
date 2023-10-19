@@ -1,6 +1,6 @@
-require_relative '../models/person'
-require_relative '../models/book'
-require_relative '../models/rental'
+require_relative '../app/models/person'
+require_relative '../app/models/book'
+require_relative '../app/models/rental'
 require 'rspec'
 describe '#Person' do
   let(:new_person) { Person.new(22, 'Javier') }

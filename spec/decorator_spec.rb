@@ -1,5 +1,5 @@
-require_relative '../models/decorator'
-require_relative '../models/nameable'
+require_relative '../app/models/decorator'
+require_relative '../app/models/nameable'
 
 describe '#Decorator' do
   let(:new_nameable) { double('Nameable', correct_name: 'Javier') }
