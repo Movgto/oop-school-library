@@ -48,8 +48,6 @@ module Library
     puts "\n"
   end
 
-  # Method that displays all user rental
-  # list_person: array of person
   def get_user_rental(data)
     puts 'All rentals for a given person number(not id)'
     get_list_person(data, true)
@@ -62,6 +60,7 @@ module Library
     puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
     choice = gets.chomp
     return unless valid_number?(%w[1 2], choice)
+
     puts 'Age:'
     age = gets.chomp
     puts 'Name:'
