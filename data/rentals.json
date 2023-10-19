@@ -18,5 +18,15 @@
     "person_idx" : 3,
     "book_idx" : 5,
     "date" : "2023-12-06"
+  },
+  {
+    "person_idx" : 2,
+    "book_idx" : 0,
+    "date" : "kfdk"
+  },
+  {
+    "person_idx" : 0,
+    "book_idx" : 8,
+    "date" : "3"
   }
 ]
