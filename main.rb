@@ -4,9 +4,9 @@ require_relative 'app/models/data_handler'
 class Launcher
   include Library
   include DataHandler
-  # Print list of Main options
+
   def option_list
-    puts 'Please choose an option by intering a number:'
+    puts 'Please choose an option by entering a number:'
     puts '1 - List all books'
     puts '2 - List all people'
     puts '3 - Create a person'

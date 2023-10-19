@@ -48,14 +48,14 @@ module Library
   end
 
   def get_user_rental(data)
-    puts 'All rentals for a given person number(not id)'
+    puts 'All rentals for a given person number (not id)'
     get_list_person(data, true)
     idx = gets.chomp
     data[:people][idx.to_i].rentals_description
     puts "\n"
   end
 
-  def add_new_person()
+  def add_new_person
     puts 'Do you want to create a student (1) or a teacher (2) [Input the number] :'
     choice = gets.chomp
 
