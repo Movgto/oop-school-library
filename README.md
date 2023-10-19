@@ -1,97 +1,101 @@
-<a name="readme-top"></a>
-
+<div align="center">
+  <h2><b>School library</b></h2>
+  <h4>Bruno Kambere</h4> 
+</div>
+<br>
 
 # 📗 Table of Contents
 
-- [📗 Table of Contents](#-table-of-contents)
-- [📖 OOP School Library App ](#-oop-school-library-app-)
-  - [🛠 Built With ](#-built-with-)
-    - [Tech Stack ](#tech-stack-)
-    - [Key Features ](#key-features-)
-  - [💻 Getting Started ](#-getting-started-)
-    - [Prerequisites](#prerequisites)
-    - [Setup](#setup)
-    - [Usage](#usage)
-  - [👥 Authors ](#-authors-)
-  - [🔭 Future Features ](#-future-features-)
-  - [🤝 Contributing ](#-contributing-)
-  - [⭐️ Show your support ](#️-show-your-support-)
-  - [🙏 Acknowledgments ](#-acknowledgments-)
-  - [📝 License ](#-license-)
+- [📖 About the Project](#about-project) 
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+- [💻 Getting Started](#getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Setup](#setup)
+  - [Install](#install)
+  - [Usage](#usage)
+- [👥 Authors](#authors)
+- [🛩️ Future Features](#future-features)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
+- [📝 License](#license)
 
-# 📖 OOP School Library App <a name="about-project"></a>
+# 📖 Clinic Database <a name="about-project"></a>
 
-**School Library App** is an application for a library data storage using Ruby classes and objects.
+**School library** is a comprehensive App to improve the school library's collection, services, and facilities.
 
 ## 🛠 Built With <a name="built-with"></a>
 
+1. Ruby
+2. Rubocop
 
 ### Tech Stack <a name="tech-stack"></a>
 
 <details>
-<summary>Technologies</summary>
+  <summary>Backend</summary>
   <ul>
-    <li><a href="https://www.ruby-lang.org/en/">Ruby</a></li>
+    <li><a href="https://www.ruby-lang.org/es/">Ruby</a></li>
   </ul>
 </details>
 
-
 ### Key Features <a name="key-features"></a>
 
-- A library tool to record what books are in the library and who borrows them.
-- This app allows users to:
-  - Add new students or teachers.
-  - Add new books.
-  - Save records of who borrowed a given book and when.
-
+- Add a Person who can be either a Student or a Teacher
+- Check whether the Person can or not use services
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 💻 Getting Started <a name="getting-started"></a>
-
-To get a local copy up and running, follow these steps.
+# Getting Started <a name="getting-started"></a>
 
 ### Prerequisites
 
 In order to run this project you need:
 
+1. Git.
+2. Visual Studio Code or another code editor.
+3. Ruby installed in your local environment
+
 ### Setup
+
+To get a local copy, follow these steps.
 
 Clone this repository to your desired folder:
 
+  ```sh
+  cd my-folder
+  git clone https://github.com/kambereBr/school-library.git
+  code . (To open in Vscode)
 ```
-git clone https://github.com/Movgto/decode-morse-ruby.git
-cd decode-morse-ruby
-```
+  
+### Install
+
+This project does not require installation. Just clone the repository to your local machine.
 
 ### Usage
 
-To run the project, execute the following command:
-
+You can run this project just by typing in the terminal:
 ```
-ruby library.rb
+ruby <file_name>.rb
 ```
-
-Then, a list of actions will display to you on the terminal, type the corresponding number for the action you want to perform. Among them, adding a new student, teacher, or a book to the library database. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 👥 Authors <a name="authors"></a>
 
-👤 **Gumaro Monroy Vazquez**
+👤 **Bruno Kambere**
 
-- [GitHub](https://github.com/Movgto)
-- [LinkedIn](https://www.linkedin.com/in/gumaro-monroy-vazquez-1705aa165/)
-- [Wellfound](https://wellfound.com/u/maro-monroy)
+- GitHub: [@kambereBr](https://github.com/kambereBr)
+- Twitter: [@kambereBr](https://twitter.com/kambereBr)
+- LinkedIn: [bruno kambere](https://www.linkedin.com/in/bruno-kambere/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## 🔭 Future Features <a name="future-features"></a>
+## 🛩️ Future Features <a name="future-features"></a>
 
-- Add UI.
-- Add logic so the user can add new books, students, and teachers.
-- Refactor the code .
-- Add tests .
+- Add a UI
+- Deploy on cloud
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -99,26 +103,22 @@ Then, a list of actions will display to you on the terminal, type the correspond
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](../../issues/).
+Feel free to check the [issues page](https://github.com/kambereBr/school-library/issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## ⭐️ Show your support <a name="support"></a>
 
-If you like this project feel free to watch it and take some features that will enhance your project as well.
+If you like this project give it a ⭐️.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-<!-- ACKNOWLEDGEMENTS -->
-
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to thank the Microverse Team for reviewing my code and making me a better professional.
+I would like to thanks to Microverse for providing the necessary resources.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 📝 License <a name="license"></a>
 
-This project is [MIT](./LICENSE) licensed.
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+This project is [MIT](LICENSE) licensed.
