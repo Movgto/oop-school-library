@@ -91,16 +91,6 @@ module Library
     teacher.save
   end
 
-  def add_new_book(*)
-    book = Book.new(nil, nil)
-    puts 'title:'
-    book.title = gets.chomp
-    puts 'Author:'
-    book.author = gets.chomp
-    book.save
-    success_msg('Book')
-  end
-
   def create_new_rental(data)
     puts 'Select a book from the following list by number'
     get_list_books(data, true)
@@ -125,3 +115,19 @@ module Library
     false
   end
 end
+
+# Create a new module for book-related actions
+module BookActions
+  def add_new_book(*)
+    book = Book.new(nil, nil)
+    puts 'title:'
+    book.title = gets.chomp
+    puts 'Author:'
+    book.author = gets.chomp
+    book.save
+    success_msg('Book')
+  end
+end
+
+# Include the BookActions module
+include BookActions
